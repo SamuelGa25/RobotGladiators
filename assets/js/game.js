@@ -11,6 +11,9 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+
+
+
     
 var fight = function(enemyName){
     window.alert("Welcome to Robot Gladiators!");
@@ -73,6 +76,50 @@ var fight = function(enemyName){
 
 };
 
+var shop = function(){
+    console.log("entered the shop");
+    
+    var ShopOptionPrompt = window.prompt("Would you like to 'REFILL' your health, 'UPGRADE' your attack or LEAVE");
+
+    switch (shopOptionPrompt) {
+        case "REFILL": // new case
+        case "refill":
+          if (playerMoney >= 7) {
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+      
+            playerHealth = playerHealth + 20;
+            playerMoney = playerMoney - 7;
+          }
+          else {
+            window.alert("You don't have enough money!");
+          }
+      
+          break;
+        case "UPGRADE": // new case
+        case "upgrade":
+          if (playerMoney >= 7) {
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+      
+            playerAttack = playerAttack + 6;
+            playerMoney = playerMoney - 7;
+          }
+          else {
+            window.alert("You don't have enough money!");
+          }
+      
+          break;
+        case "LEAVE": // new case
+        case "leave":
+          window.alert("Leaving the store.");
+          break;
+        default:
+          window.alert("You did not pick a valid option. Try again.");
+          shop();
+          break;
+    }
+
+};
+
 var endGame = function(){
     //if player is still alive, player wins!
     if (playerHealth >0){
@@ -93,7 +140,6 @@ var endGame = function(){
 };
 
 
-
 var startGame = function(){
     //reset player stats
     playerHealth = 100;
@@ -102,7 +148,7 @@ var startGame = function(){
 
     for (var i= 0; i < enemyNames.length; i++){
 
-        if (playerHealth > 0){
+        if (playerHealth > 0 && i< enemyNames.length  -1){
             //letting the player know what round they are in.
             window.alert("Welcome to Robot Gladiators! Round "+ (i+1));
             //pick new enemy to fight based on the index of the enemyNames array 
@@ -115,6 +161,11 @@ var startGame = function(){
 
             //passing the variable function 
             fight(pickedEnemyName);
+
+            //if we're not at the last enemy in the array
+            if (storeConfirm){
+                shop();
+            }
 
         }else{
             window.alert("You have lost your robot in battle! Game Over!");
