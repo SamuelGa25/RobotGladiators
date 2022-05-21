@@ -12,9 +12,6 @@ var enemyHealth = 50;
 var enemyAttack = 12;
 
 
-
-
-    
 var fight = function(enemyName){
     window.alert("Welcome to Robot Gladiators!");
 
@@ -22,9 +19,12 @@ var fight = function(enemyName){
         var promptFight = window.prompt("Would you like FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.")
 
         if (promptFight === "fight" || promptFight == "FIGHT"){
-        
+            
+            var damage = randomNumber(playerAttack - 3, playerAttack);
             //myPlayer Attack 
-            enemyHealth = enemyHealth - playerAttack;
+            enemyHealth = Math.max(0,enemyHealth - playerAttack);
+
+
             //log in the resulting message
             console.log(playerName +" attacked "+ enemyName+". "+" now has "+enemyHealth+" health remaining");
             
@@ -37,8 +37,10 @@ var fight = function(enemyName){
 
             }
 
+            var damage = randomNumber(enemyAttack-3, playerAttack);
             //Enemy Attack
-            playerHealth = playerHealth - enemyAttack;
+            playerHealth = Math.max(0,playerHealth - enemyAttack);
+            
             //log in the resulting message
             console.log(enemyName +" attacked "+playerName+". "+" now has "+playerHealth+" health remaining");
 
@@ -60,7 +62,7 @@ var fight = function(enemyName){
             if (confirmSkip){
                 window.alert(playerName + " has chosen to skip the fight!");
                 //subtracting money from playerMoney for skipping 
-                playerMoney = playerMoney -10;
+                playerMoney = Math.max(playerMoney -10);
                 console.log("playerMoney", playerMoney)
                 break;
 
@@ -120,6 +122,15 @@ var shop = function(){
 
 };
 
+//function to generate a random numeric value 
+
+var randomNumber = function(min,max){
+    var value = Math.floor(Math.random()*(max-min+1)+min);
+
+    return value;
+}
+
+
 var endGame = function(){
     //if player is still alive, player wins!
     if (playerHealth >0){
@@ -154,7 +165,7 @@ var startGame = function(){
             //pick new enemy to fight based on the index of the enemyNames array 
             var pickedEnemyName = enemyNames[i];
             //reseting the health 
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40,60);
 
             //Using a debugger to check what's going on inside.
             //debugger;
